@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211712">
+  <title>Pancita Llena | Administración</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="admin-page">
+  <header class="site-header"><div class="header-inner"><a class="brand" href="index.html" aria-label="Volver al menú"><span class="brand-mark"><img src="assets/img/logo.jpg" alt="Pancita Llena"></span><span><strong>Pancita</strong><em>Llena</em></span></a><div class="service-status"><span class="status-dot"></span><span id="adminStatus">Panel privado</span></div></div></header>
+  <main>
+    <section id="pinGate" class="choice-panel pin-gate"><p class="eyebrow">Acceso privado</p><h1>Panel de la dueña</h1><p class="muted">Ingresa el PIN para administrar la operación.</p><input id="adminPin" class="pin-input" type="password" inputmode="numeric" maxlength="8" placeholder="PIN de acceso" autocomplete="current-password"><button class="btn wide" onclick="loginAdmin()">Entrar al panel</button><a class="btn ghost wide" href="index.html">Volver al menú</a></section>
+    <div id="adminApp" class="hidden">
+      <div class="section-heading"><p class="eyebrow">Control diario</p><h1>Panel de la dueña</h1></div>
+      <div class="admin-grid">
+        <section class="admin-card"><div class="row between"><div><h2>Servicio</h2><p class="muted">Abre o pausa nuevos pedidos.</p></div><span id="badgeEstado" class="badge">…</span></div><button id="btnToggleEstado" class="btn wide">Cargando…</button><label>WhatsApp del restaurante</label><div class="row"><input id="inputWhatsapp" inputmode="tel" placeholder="3001234567"><button class="btn secondary" onclick="guardarWhatsapp()">Guardar</button></div></section>
+        <section class="admin-card"><h2>Corte de caja</h2><div class="stats-grid"><div><strong id="ventasHoy">$0</strong><span>Ventas de hoy</span></div><div><strong id="pedidosHoy">0</strong><span>Pedidos</span></div></div><button class="btn wide" onclick="corteCaja()">Corte de Caja / Cierre de Día</button><div id="corteLink"></div></section>
+      </div>
+      <section class="admin-card executive-admin"><div class="row between"><div><h2>Menú ejecutivo</h2><p class="muted">Sopa, principios, proteínas y precio.</p></div><span class="badge ok">Lunes a sábado</span></div><div id="listaEjecutivoAdmin"></div><button class="btn" onclick="guardarEjecutivoAdmin()">Guardar menú ejecutivo</button></section>
+      <section class="admin-card"><h2>KDS · Cocina</h2><p class="muted">Pedidos ordenados por hora de llegada.</p><div id="kds" class="kds-grid"><p class="muted">Sin pedidos todavía.</p></div></section>
+      <section class="admin-card"><h2>Menú administrable</h2><div id="listaAdminMenu"></div><div class="admin-divider"></div><h3>Agregar plato</h3><label>Nombre</label><input id="nuevoNombre"><label>Descripción</label><input id="nuevoDesc"><label>Categoría</label><input id="nuevoCat" placeholder="Fuertes, Bebidas"><label>Precio</label><input id="nuevoPrecio" type="number"><label>Ingredientes, separados por coma</label><input id="nuevoIngredientes"><button class="btn" onclick="agregarPlatoAdmin()">Agregar al menú</button></section>
+    </div>
+  </main>
+  <div id="toast" class="toast" role="status"></div>
+
+  <!-- Conexión a la base de datos compartida (Firebase Firestore). -->
+  <!-- Debe ser EXACTAMENTE la misma firebaseConfig que pusiste en index.html. -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwWaZ6plQtFWNROoo6ljjDn077iEYn5V0",
+      authDomain: "pancita-llena.firebaseapp.com",
+      projectId: "pancita-llena",
+      storageBucket: "pancita-llena.firebasestorage.app",
+      messagingSenderId: "200912684622",
+      appId: "1:200912684622:web:adb7b24d4cdcb8276ba51f",
+      measurementId: "G-WTBTCG9GGP"
+    };
+    firebase.initializeApp(firebaseConfig);
+    window.db = firebase.firestore();
+  </script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
